@@ -2,7 +2,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.colors import Color, black, cyan, red
+from reportlab.lib.colors import Color, black, red
 
 # global vars (constants)
 w,h = (8*inch,8.5*inch)
@@ -12,6 +12,8 @@ sp = u'\u2660'
 he = u'\u2661'
 di = u'\u2662'
 cl = u'\u2663'
+box = u'\u25a1'
+selbox = u'\u25a8'
 
 # register fonts
 pdfmetrics.registerFont(TTFont('Deja', 'dejavusans.ttf'))
@@ -68,7 +70,41 @@ def makegrid(c):
 	c.line(w/2,38*offset,w-offset,38*offset)
 	c.line(w/2,48*offset,w-offset,48*offset)
 	
-
+def addbluetext(c):
+	c.setFillColorRGB(0,0.5,1)
+	textobj = c.beginText()
+	textobj.setTextOrigin(w/2+offset, h-offset*18)
+	textobj.moveCursor(25,0)
+	textobj.textOut('1NT')
+	textobj.moveCursor(-25,3*offset)
+	textobj.textLine('_______ to _______')
+	textobj.textOut('_______ to _______')
+	textobj.moveCursor(w/3-offset,0)
+	textobj.textLine('Jacoby'+box+'   Texas'+box)
+	textobj.moveCursor(20+offset-w/3,12*offset)
+	textobj.textOut('Transfer to '+he+box)
+	textobj.moveCursor(80,0)
+	textobj.textLine('4'+di+', 4'+he+' Transfer'+box)
+	textobj.moveCursor(-80,3*offset)
+	textobj.textLine('Transfer to '+sp+box)
+	
+	# Need to include boxes outside 1NT, however I need other colors for spacing guidelines.
+	
+	c.drawText(textobj)
+	
+def add2level(c):
+	c.setFillColor(black)
+	textobj = c.beginText()
+	textobj.setFont('Deja', 2*fs)
+	textobj.setTextOrigin(w/2+offset,54*offset)
+	textobj.textLine('2'+cl)
+	textobj.setTextOrigin(w/2+offset,44*offset)
+	textobj.textLine('2'+di)
+	textobj.setTextOrigin(w/2+offset,34*offset)
+	textobj.textLine('2'+he)
+	textobj.setTextOrigin(w/2+offset,24*offset)
+	textobj.textLine('2'+sp)
+	c.drawText(textobj)
 
 	
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
@@ -77,5 +113,7 @@ c.setFont('Deja',fs)
 
 
 makegrid(c)
+addbluetext(c)
+add2level(c)
 c.showPage()
 c.save()
