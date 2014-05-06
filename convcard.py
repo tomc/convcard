@@ -21,38 +21,61 @@ pdfmetrics.registerFont(TTFont('DejaBd', 'dejavusans-bold.ttf'))
 #names = "   Tom & Jenni Carmichael   "
 names = ''
 
-def hello(c):
-	c.drawString(100,100,"Hello World")
-	c.drawString(100,200,"More tests")
-
-def gridtest(c):
-	c.setLineWidth(3)
+def makegrid(c):
+	# Lines are approximate at best for now, can be tweaked as needed later.
+	
+	c.setLineWidth(4)
 	c.grid([offset,w/2,w-offset],[offset,h-offset])
+	c.setLineWidth(2)
+	
+	#Verticle Left
+	c.line(w/4,h-offset,w/4,h-88*offset)  
+	
+	#Horizontal Left
+	c.line(offset,h-23*offset,w/4,h-23*offset)
+	c.line(w/4,h-20*offset,w/2,h-20*offset)
+	
+	c.line(offset,h-45*offset,w/4,h-45*offset)
+	c.line(w/4,h-48*offset,w/2,h-48*offset)
+	
+	c.line(offset,h-55*offset,w/4,h-55*offset)
+	c.line(offset,h-68*offset,w/4,h-68*offset)
+	c.line(w/4,h-73*offset,w/2,h-73*offset)
+	
+	c.line(offset,h-88*offset,w/2,h-88*offset)
+	c.line(offset,h-101*offset,w/2,h-101*offset)
+	#Lead seperator
 	c.setLineWidth(1)
-	c.setFont('DejaBd',fs)
-	c.drawString(w/2+offset,h-offset*4+1, 'Names:')
-	c.setFont('Deja',fs)
-	c.drawString(w/2+9*offset,h-offset*4+1, names)
-	c.setFont('DejaBd',fs)
-	c.drawString(w/2+offset,h-offset*7.5,'General Approach:')
-	c.setFont('Deja',fs)
-	c.setFillColor(red)
-	c.drawString(11*w/16+2*offset,h-offset*7.5,'Strong Club (1'+cl+' forcing)')
-	c.setFillColor(black)
-	# NT
-	c.setFont('DejaBd',fs)
-	c.drawCentredString(3*w/4,h-offset*11.5,'Notrump Opening Bids')
-	c.setFont('Deja',fs)
-	c.grid([w/2,w-offset],[offset,h/2+20*offset,h-offset*9,h-offset*5,h-offset])
-	#c.line(w/2,h-offset*6,w-offset,h-offset*6)
+	c.line(w/6,h-105*offset,w/6,h-129*offset)
+	c.line(w/3,h-101*offset,w/3,7*offset)
+	c.line(offset,14*offset,w/3,14*offset)
+	
+	#Right
+	c.setLineWidth(2)
+	c.line(w/2,h-offset*5,w-offset,h-offset*5)
+	c.line(w/2,h-offset*12,w-offset,h-offset*12)
+	
+	c.line(w/2,h-offset*49,w-offset,h-offset*49)
+	c.line(w/2,h-offset*95,w-offset,h-offset*95)
+	
+	c.line(408,h-offset*49,408,h-offset*95)  # 408 is halfway between 2/3 and 3/4, i.e. 17/24ths.
+	c.line(408,h-offset*72,w-offset,h-offset*72)
+	
+	c.line(w/2,18*offset,w-offset,18*offset)
+	
+	c.setLineWidth(1)
+	c.line(w/2,28*offset,w-offset,28*offset)
+	c.line(w/2,38*offset,w-offset,38*offset)
+	c.line(w/2,48*offset,w-offset,48*offset)
 	
 
+
 	
-	
-c = canvas.Canvas("hello.pdf",pagesize=(w,h))  # inch = 72 points
+c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
 
 c.setFont('Deja',fs)
-#hello(c)
-gridtest(c)
+
+
+makegrid(c)
 c.showPage()
 c.save()
