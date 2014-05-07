@@ -4,6 +4,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.colors import Color, black, red
 
+
 # global vars (constants)
 w,h = (8*inch,8.5*inch)
 offset = 4
@@ -23,6 +24,15 @@ pdfmetrics.registerFont(TTFont('DejaBd', 'dejavusans-bold.ttf'))
 #names = "   Tom & Jenni Carmichael   "
 names = ''
 
+def centerText(textobj,text,font='DejaBd',fontsize=fs):
+#  textobjects do not have the equivalent of drawCentredString
+#  created my own.  To use, set the origin point before calling the function, then send
+#  both the textobject and the string to center.  Defaults to Deja Bold, default fontsize but can override if wanted.
+
+	textwidth = pdfmetrics.stringWidth(text,font,fontsize)
+	textobj.moveCursor(-textwidth/2,0)
+	textobj.textOut(text)
+	
 def makegrid(c):
 	# Lines are approximate at best for now, can be tweaked as needed later.
 	
@@ -114,29 +124,61 @@ def add2level(c):
 	textobj.textLine('2'+sp)
 	c.drawText(textobj)
 
+
 def addBold(c):
 		c.setFillColor(black)
 		textobj = c.beginText()
 		textobj.setFont('DejaBd', fs)
-		textobj.setTextOrigin(w/2+offset,h-4*offset)
+		textobj.setTextOrigin(w/2+offset,h-4*offset+1)
 		textobj.textLine('Names:')
 		textobj.moveCursor(0,offset)
 		textobj.textLine('General Approach:')
 		textobj.moveCursor(0,offset)
 		textobj.textLine('Very Light:')
 	
-		textobj.setTextOrigin(360,h-offset*15)
-		textobj.textLine('NoTrump Openings')
+		textobj.setTextOrigin(w/2+91,h-offset*15+1)
+		centerText(textobj,'NoTrump Openings')
 		
-		textobj.setTextOrigin(317,h-offset*52)
-		textobj.textOut('Major Openings')
-		textobj.moveCursor(100,0)
+		
+		textobj.setTextOrigin(w/2+60,h-offset*52+1)
+		centerText(textobj,'Major Openings')
+		textobj.moveCursor(105,0)
 		textobj.textOut('1'+cl+' Strong, Forcing and ')
 		textobj.setFillColor(red)
 		textobj.textLine('Artificial')
 		textobj.setFillColor(black)
-		textobj.setTextOrigin(460,h-offset*75)
-		textobj.textLine('1'+di+' Openings')
+		textobj.setTextOrigin(492,h-offset*75+1)
+		centerText(textobj,'1'+di+' Openings')
+		
+		textobj.setTextOrigin(3*w/4,15*offset+1)
+		centerText(textobj,'Other Conventional Calls')
+		
+		textobj.setTextOrigin(w/8,h-4*offset+1)
+		centerText(textobj,'Special Doubles')
+		textobj.setTextOrigin(3*w/8,h-4*offset+1)
+		centerText(textobj,'NoTrump Overcalls')
+		
+		textobj.setTextOrigin(w/8,h-26*offset+1)
+		centerText(textobj,'Simple Overcalls')
+		
+		textobj.setTextOrigin(3*w/8,h-23*offset+1)
+		centerText(textobj,'Defense vs. NoTrump')
+		
+		textobj.setTextOrigin(w/8,h-48*offset+1)
+		centerText(textobj,'Jump Overcalls')
+		
+		textobj.setTextOrigin(3*w/8,h-51*offset+1)
+		centerText(textobj,"Over Opp's T/O Dbl")
+		
+		textobj.setTextOrigin(w/8,h-58*offset+1)
+		centerText(textobj,'Opening Preempts')
+		
+		textobj.setTextOrigin(w/8,h-71*offset+1)
+		centerText(textobj,'Direct Cuebid')
+		
+		textobj.setTextOrigin(3*w/8,h-76*offset+1)
+		centerText(textobj,"Vs. Opening Preempts Dbl is")
+		
 		
 		c.drawText(textobj)
 	
