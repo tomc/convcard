@@ -91,6 +91,11 @@ def addbluetext(c):
 	textobj.moveCursor(-80,3*offset)
 	textobj.textLine('Transfer to '+sp+box)
 	
+	textobj.setTextOrigin(412,h-offset*78)
+	textobj.setFillColor(black)
+	textobj.textOut('Min Length: 4'+box+'  3'+box)
+	textobj.setFillColorRGB(0,0.5,1)
+	textobj.textOut('  2'+box+'  1'+box+'  0'+box)
 	# Need to include boxes outside 1NT, however I need other colors for spacing guidelines.
 	
 	c.drawText(textobj)
@@ -122,6 +127,17 @@ def addBold(c):
 	
 		textobj.setTextOrigin(360,h-offset*15)
 		textobj.textLine('NoTrump Openings')
+		
+		textobj.setTextOrigin(317,h-offset*52)
+		textobj.textOut('Major Openings')
+		textobj.moveCursor(100,0)
+		textobj.textOut('1'+cl+' Strong, Forcing and ')
+		textobj.setFillColor(red)
+		textobj.textLine('Artificial')
+		textobj.setFillColor(black)
+		textobj.setTextOrigin(460,h-offset*75)
+		textobj.textLine('1'+di+' Openings')
+		
 		c.drawText(textobj)
 	
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
