@@ -70,6 +70,9 @@ def makegrid(c):
 	c.line(w/2,38*offset,w-offset,38*offset)
 	c.line(w/2,48*offset,w-offset,48*offset)
 	
+	#2NT Box
+	c.rect(470,h-13*offset,w-470-2*offset,-100)
+	
 def addbluetext(c):
 	c.setFillColorRGB(0,0.5,1)
 	textobj = c.beginText()
@@ -106,6 +109,20 @@ def add2level(c):
 	textobj.textLine('2'+sp)
 	c.drawText(textobj)
 
+def addBold(c):
+		c.setFillColor(black)
+		textobj = c.beginText()
+		textobj.setFont('DejaBd', fs)
+		textobj.setTextOrigin(w/2+offset,h-4*offset)
+		textobj.textLine('Names:')
+		textobj.moveCursor(0,offset)
+		textobj.textLine('General Approach:')
+		textobj.moveCursor(0,offset)
+		textobj.textLine('Very Light:')
+	
+		textobj.setTextOrigin(360,h-offset*15)
+		textobj.textLine('NoTrump Openings')
+		c.drawText(textobj)
 	
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
 
@@ -115,5 +132,6 @@ c.setFont('Deja',fs)
 makegrid(c)
 addbluetext(c)
 add2level(c)
+addBold(c)
 c.showPage()
 c.save()
