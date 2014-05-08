@@ -3,6 +3,6 @@ convcard
 
 Using python/reportlab to create a pdf of a convcard - more friendly for strong club.
 
-Not all decisions have been made yet, but I may make the pdf into a "form" that can be completed using a pdf reader.
+Not all decisions have been made yet.  Ideally I will finish the "form" and then leverage it to make comp generated covcards.
 
-Currently just testing, but about to start working on the design.
+Still flushing out the design.  Much of the program is manual rather than programmatic.
