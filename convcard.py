@@ -2,7 +2,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.colors import Color, black, red
+from reportlab.lib.colors import Color, black, red, green
 
 
 # global vars (constants)
@@ -19,6 +19,7 @@ selbox = u'\u25a8'
 # register fonts
 pdfmetrics.registerFont(TTFont('Deja', 'dejavusans.ttf'))
 pdfmetrics.registerFont(TTFont('DejaBd', 'dejavusans-bold.ttf'))
+pdfmetrics.registerFont(TTFont('DejaThin', 'dejavusanscondensed.ttf'))
 
 # testing vars
 #names = "   Tom & Jenni Carmichael   "
@@ -58,9 +59,9 @@ def makegrid(c):
 	c.line(offset,h-101*offset,w/2,h-101*offset)
 	#Lead seperator
 	c.setLineWidth(1)
-	c.line(w/6,h-105*offset,w/6,h-129*offset)
-	c.line(w/3,h-101*offset,w/3,7*offset)
-	c.line(offset,14*offset,w/3,14*offset)
+	c.line(w/6,h-108*offset,w/6,h-125*offset)
+	c.line(w/3,h-101*offset,w/3,offset)
+	c.line(offset,13*offset,w/3,13*offset)
 	
 	#Right
 	c.setLineWidth(2)
@@ -126,62 +127,276 @@ def add2level(c):
 
 
 def addBold(c):
-		c.setFillColor(black)
-		textobj = c.beginText()
-		textobj.setFont('DejaBd', fs)
-		textobj.setTextOrigin(w/2+offset,h-4*offset+1)
-		textobj.textLine('Names:')
-		textobj.moveCursor(0,offset)
-		textobj.textLine('General Approach:')
-		textobj.moveCursor(0,offset)
-		textobj.textLine('Very Light:')
+	c.setFillColor(black)
+	textobj = c.beginText()
+	textobj.setFont('DejaBd', fs)
+	textobj.setTextOrigin(w/2+offset,h-4*offset+1)
+	textobj.textLine('Names:')
+	textobj.moveCursor(0,offset)
+	textobj.textLine('General Approach:')
+	textobj.moveCursor(0,offset)
+	textobj.textLine('Very Light:')
 	
-		textobj.setTextOrigin(w/2+91,h-offset*15+1)
-		centerText(textobj,'NoTrump Openings')
+	textobj.setTextOrigin(w/2+91,h-offset*15+1)
+	centerText(textobj,'NoTrump Openings')
 		
 		
-		textobj.setTextOrigin(w/2+60,h-offset*52+1)
-		centerText(textobj,'Major Openings')
-		textobj.moveCursor(105,0)
-		textobj.textOut('1'+cl+' Strong, Forcing and ')
-		textobj.setFillColor(red)
-		textobj.textLine('Artificial')
-		textobj.setFillColor(black)
-		textobj.setTextOrigin(492,h-offset*75+1)
-		centerText(textobj,'1'+di+' Openings')
+	textobj.setTextOrigin(w/2+60,h-offset*52+1)
+	centerText(textobj,'Major Openings')
+	textobj.moveCursor(105,0)
+	textobj.textOut('1'+cl+' Strong, Forcing and ')
+	textobj.setFillColor(red)
+	textobj.textLine('Artificial')
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(492,h-offset*75+1)
+	centerText(textobj,'1'+di+' Openings')
 		
-		textobj.setTextOrigin(3*w/4,15*offset+1)
-		centerText(textobj,'Other Conventional Calls')
+	textobj.setTextOrigin(3*w/4,15*offset+1)
+	centerText(textobj,'Other Conventional Calls')
 		
-		textobj.setTextOrigin(w/8,h-4*offset+1)
-		centerText(textobj,'Special Doubles')
-		textobj.setTextOrigin(3*w/8,h-4*offset+1)
-		centerText(textobj,'NoTrump Overcalls')
+	textobj.setTextOrigin(w/8,h-4*offset+1)
+	centerText(textobj,'Special Doubles')
+	textobj.setTextOrigin(3*w/8,h-4*offset+1)
+	centerText(textobj,'NoTrump Overcalls')
 		
-		textobj.setTextOrigin(w/8,h-26*offset+1)
-		centerText(textobj,'Simple Overcalls')
+	textobj.setTextOrigin(w/8,h-26*offset+1)
+	centerText(textobj,'Simple Overcalls')
 		
-		textobj.setTextOrigin(3*w/8,h-23*offset+1)
-		centerText(textobj,'Defense vs. NoTrump')
+	textobj.setTextOrigin(3*w/8,h-23*offset+1)
+	centerText(textobj,'Defense vs. NoTrump')
 		
-		textobj.setTextOrigin(w/8,h-48*offset+1)
-		centerText(textobj,'Jump Overcalls')
+	textobj.setTextOrigin(w/8,h-48*offset+1)
+	centerText(textobj,'Jump Overcalls')
 		
-		textobj.setTextOrigin(3*w/8,h-51*offset+1)
-		centerText(textobj,"Over Opp's T/O Dbl")
+	textobj.setTextOrigin(3*w/8,h-51*offset+1)
+	centerText(textobj,"Over Opp's T/O Dbl")
 		
-		textobj.setTextOrigin(w/8,h-58*offset+1)
-		centerText(textobj,'Opening Preempts')
+	textobj.setTextOrigin(w/8,h-58*offset+1)
+	centerText(textobj,'Opening Preempts')
 		
-		textobj.setTextOrigin(w/8,h-71*offset+1)
-		centerText(textobj,'Direct Cuebid')
+	textobj.setTextOrigin(w/8,h-71*offset+1)
+	centerText(textobj,'Direct Cuebid')
 		
-		textobj.setTextOrigin(3*w/8,h-76*offset+1)
-		centerText(textobj,"Vs. Opening Preempts Dbl is")
+	textobj.setTextOrigin(3*w/8,h-76*offset+1)
+	centerText(textobj,"Vs. Opening Preempts Dbl is")
 		
+	textobj.setTextOrigin(w/4,h-91*offset)
+	centerText(textobj,'Slam Conventions')
 		
-		c.drawText(textobj)
+	textobj.setTextOrigin(w/6,h-104*offset)
+	centerText(textobj, 'Leads')
+		
+	textobj.setTextOrigin(5*w/12,h-104*offset)
+	centerText(textobj, 'Carding')
+		
+	textobj.setTextOrigin(w/12,h-107*offset)
+	textobj.setFont('Deja',fs)
+	centerText(textobj, 'Vs. Suits', font='Deja')
+	textobj.setTextOrigin(3*w/12,h-107*offset)
+	centerText(textobj, 'Vs. NoTrump', font='Deja')
+		
+		# Opening Lead selection
+		# Going line by line to get the bolding/coloring right
+		# Tedious compared to textLines(), but I don't know of a way to change font midstring.
+		
+	textobj.setTextOrigin(offset*3,h-110*offset)
+		# Line 1
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.setFillColor(red)
+	textobj.textOut('x')
+	textobj.setFillColor(black)
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('x x x ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x')
+	textobj.moveCursor(w/6-10*offset,0)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.setFillColor(red)
+	textobj.textOut('x')
+	textobj.setFillColor(black)
+	textobj.moveCursor(10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('x x x')
+		
+		# Line 2
+	textobj.moveCursor(-w/6-10*offset,0)
+	textobj.textOut('x x ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('x x x ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('x')
+	textobj.moveCursor(w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('x x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('x x x ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('x ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('x')
+		
+		# Line 3
+	textobj.moveCursor(-w/6-10*offset,0)
+	textobj.textOut('A K x')
+	textobj.moveCursor(10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('T ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('9 x')
+	textobj.moveCursor(w/6-10*offset,0)
+	textobj.textOut('A ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('K ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('J x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('A ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('Q ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('J x')
+		
+		# Line 4 
+	textobj.moveCursor(-w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('K ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('Q x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('K ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('J ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('T x')
+	textobj.moveCursor(w/6-10*offset,0)
+	textobj.textOut('A ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('J ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('T 9')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('A ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('T ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('9 x')
+
+		# Line 5
+	textobj.moveCursor(-w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('Q ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('J x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('K ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('T ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('9 x')
+	textobj.moveCursor(w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('K ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('Q J x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('K ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('Q ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('T 9')
+
+		# Line 6
+	textobj.moveCursor(-w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('J ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('T 9')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('Q ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('T ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('9 x')
+	textobj.moveCursor(w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('Q ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('J T x')
+	textobj.moveCursor(10*offset,0)
+	textobj.textOut('Q ')
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('T ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('9 x')
+
+		# Line 7 (final)
+	textobj.moveCursor(-w/6-10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('K ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('Q T 9')
+	textobj.moveCursor(w/6,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('J ')
+	textobj.setFont('Deja',fs)
+	textobj.textOut('T 9 x')
+	textobj.moveCursor(10*offset,0)
+	textobj.setFont('DejaBd',fs)
+	textobj.textOut('T ')
+	textobj.setFont('Deja',fs)
+	textobj.textLine('9 x x')
 	
+	c.drawText(textobj)
+
+def addblacktext(c):
+	textobj = c.beginText()
+	textobj.setFont('Deja',fs)
+	textobj.setFillColor(black) # probably redundant
+
+	# I was just working on the leads/carding section and want to finish it, so starting there
+	
+	vsString = 'vs. Suits'+box+'   vs. NT'+box
+	textobj.setTextOrigin(10*offset,h-128*offset)
+	textobj.textLines(['4th Best','3rd/Low','Attitude'])
+	textobj.setTextOrigin(w/6,h-128*offset)
+	textobj.textLines([vsString,vsString,vsString])
+	
+	textobj.setTextOrigin(2*offset,17*offset)
+	textobj.textLines(["Primary signal to partner's leads:",'Attitude'+box+'   Count'+box+'   Suit Preference'+box])
+	
+	textobj.setTextOrigin(5*w/12+2*offset,h-107*offset)
+	boxStr = '   '+box+'   '+box
+	bl= '_____________________'
+	textobj.textLines(['Suits NT',boxStr,'','','','',boxStr,boxStr,'',boxStr,boxStr,boxStr,'','',
+	                 boxStr,'   '+box,boxStr])
+	
+	textobj.setTextOrigin(w/3+offset,h-107*offset)
+	textobj.textLines(['','Standard:','    Except '+box,bl,'','Upside Down','   Count','   Attitude',
+	                  'First Discard','   Odd-Even','   Lavinthal','  __________','','Other Carding','  Smith Echo','  Trump S/P','  Foster Echo'])
+	
+	
+	
+	c.drawText(textobj)
+		
+def drawLogo(c):
+	# Testing!!!
+	c.drawImage('club.tif',2*offset,3.5*offset,width=22,height=30)
+	c.setFont('Deja',2*fs)
+	c.drawCentredString(w/6+3*offset, 6*offset,'http://forcing.club/')
+		
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
 
 c.setFont('Deja',fs)
@@ -191,5 +406,7 @@ makegrid(c)
 addbluetext(c)
 add2level(c)
 addBold(c)
+addblacktext(c)
+drawLogo(c)
 c.showPage()
 c.save()
