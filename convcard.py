@@ -15,6 +15,7 @@ di = u'\u2662'
 cl = u'\u2663'
 box = u'\u2610'
 selbox = u'\u2611'
+blue=Color(0,0.5,1)
 
 # register fonts
 pdfmetrics.registerFont(TTFont('Deja', 'dejavusans.ttf'))
@@ -85,7 +86,8 @@ def makegrid(c):
 	c.rect(470,h-13*offset,w-470-2*offset,-100)
 	
 def addbluetext(c):
-	c.setFillColorRGB(0,0.5,1)
+	
+	c.setFillColor(blue)
 	textobj = c.beginText()
 	# Experiment
 	textobj.setLeading(12)
@@ -95,22 +97,22 @@ def addbluetext(c):
 	textobj.moveCursor(-25,3*offset)
 	textobj.textLine('_______ to _______')
 	textobj.textOut('_______ to _______')
-	textobj.moveCursor(w/3-offset,0)
+	textobj.moveCursor(w/3-offset,-2*offset)
 	textobj.textLine('Jacoby'+box+'   Texas'+box)
-	textobj.moveCursor(13+offset-w/3,36)
+	textobj.moveCursor(13+offset-w/3,44)
 	textobj.textOut('Transfer to '+he+box)
 	textobj.moveCursor(90,0)
 	textobj.textLine('4'+di+', 4'+he+' Transfer'+box)
 	textobj.moveCursor(-90,0)
 	textobj.setFillColor(red)
 	textobj.textLine('Forcing Stayman'+box)
-	textobj.setFillColorRGB(0,0.5,1)
+	textobj.setFillColor(blue)
 	textobj.textLine('Transfer to '+sp+box)
 	
 	textobj.setTextOrigin(412,h-offset*78)
 	textobj.setFillColor(black)
-	textobj.textOut('Min Length: 4'+box+'  3'+box)
-	textobj.setFillColorRGB(0,0.5,1)
+	textobj.textOut('Min Length:    4'+box+'  3'+box)
+	textobj.setFillColor(blue)
 	textobj.textOut('  2'+box+'  1'+box+'  0'+box)
 	# Need to include boxes outside 1NT, however I need other colors for spacing guidelines.
 	
@@ -394,7 +396,8 @@ def addblacktext(c):
 	textobj.textOut('Openings'+box+'   3rd Hand'+box+'   Overcalls'+box+'   Preempts'+box)
 	
 	# NT Box
-	# Experimental
+	# setLeading experimental - changes the height between lines.  Things were a little tight and I had extra space, so trying it out.
+	
 	textobj.setLeading(12)
 	
 	textobj.setTextOrigin(w/2+offset,h-27*offset)
@@ -402,15 +405,49 @@ def addblacktext(c):
 	                  '2'+di,'','2'+he,'2'+sp,'2NT'])
 							
 	textobj.setTextOrigin(w/2+106,h-21*offset)
-	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp])
+	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp,'','','','','Neg. Dbl'+box+'________'])
+	
+	textobj.setTextOrigin(470+offset,h-16*offset)
+	textobj.textLine('2NT   _____ to _____')
+	textobj.setTextOrigin(5*w/6,h-19*offset)
+	textobj.textLines(['Puppet Stayman'+box,'','3'+sp,'','3NT'])
+	
+	# Major Box
+	tmpbox = box+'    '+box
+	textobj.setTextOrigin(w/2+offset,h-55*offset)
+	textobj.textLines(['Min Length','1st/2nd','3rd/4th'])
+	textobj.setTextOrigin(370,h-55*offset)
+	textobj.textLines(['4     5',tmpbox,tmpbox])
+	c.setDash(1,3)
+	c.line(w/2,h-62*offset,408,h-62*offset)
+	c.setDash(1)
+	textobj.setTextOrigin(w/2+offset,h-64*offset)
+	textobj.textLine('Direct Dbl Raise:')
+	textobj.textOut('     Limit'+box)
+	textobj.setFillColor(red)
+	textobj.textLine(' Mixed'+box+' Weak'+box)
+	textobj.setFillColor(black)
+	textobj.textLine('After Overcall Dbl Raise:')
+	textobj.textLine('     Limit'+box+' Mixed'+box+' Weak'+box)
+	textobj.textOut('Art Raise: ')
+	textobj.setFillColor(red)
+	textobj.textLine('2NT'+box+' 3NT'+box+' Spl'+box)
+	textobj.textLine('Other ______________________')
+	textobj.setFillColor(blue)
+	textobj.textLine('1NT Forcing'+box+'   Semi-Forc'+box)
+	textobj.setFillColor(black)
+	textobj.textLines(['2NT _____ to _____ GF'+box+' Inv'+box,'3NT _____ to _____'])
+	textobj.setFillColor(red)
+	textobj.textLines(['Drury'+box+' Reverse'+box+' 2-way'+box,'Other ______________________'])
+	
 	
 	c.drawText(textobj)
 		
 def drawLogo(c):
 	# Testing!!!
 	c.drawImage('club.tif',2*offset,3.5*offset,width=22,height=30)
-	c.setFont('Deja',2*fs)
-	c.drawCentredString(w/6+3*offset, 6*offset,'http://forcing.club/')
+	c.setFont('Deja',14)
+	c.drawCentredString(w/6+3*offset, 6*offset,'http://atlbridge.com/')
 		
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
 
