@@ -13,8 +13,8 @@ sp = u'\u2660'
 he = u'\u2661'
 di = u'\u2662'
 cl = u'\u2663'
-box = u'\u25a1'
-selbox = u'\u25a8'
+box = u'\u2610'
+selbox = u'\u2611'
 
 # register fonts
 pdfmetrics.registerFont(TTFont('Deja', 'dejavusans.ttf'))
@@ -87,6 +87,8 @@ def makegrid(c):
 def addbluetext(c):
 	c.setFillColorRGB(0,0.5,1)
 	textobj = c.beginText()
+	# Experiment
+	textobj.setLeading(12)
 	textobj.setTextOrigin(w/2+offset, h-offset*18)
 	textobj.moveCursor(25,0)
 	textobj.textOut('1NT')
@@ -95,11 +97,14 @@ def addbluetext(c):
 	textobj.textOut('_______ to _______')
 	textobj.moveCursor(w/3-offset,0)
 	textobj.textLine('Jacoby'+box+'   Texas'+box)
-	textobj.moveCursor(20+offset-w/3,12*offset)
+	textobj.moveCursor(13+offset-w/3,36)
 	textobj.textOut('Transfer to '+he+box)
-	textobj.moveCursor(80,0)
+	textobj.moveCursor(90,0)
 	textobj.textLine('4'+di+', 4'+he+' Transfer'+box)
-	textobj.moveCursor(-80,3*offset)
+	textobj.moveCursor(-90,0)
+	textobj.setFillColor(red)
+	textobj.textLine('Forcing Stayman'+box)
+	textobj.setFillColorRGB(0,0.5,1)
 	textobj.textLine('Transfer to '+sp+box)
 	
 	textobj.setTextOrigin(412,h-offset*78)
@@ -143,12 +148,9 @@ def addBold(c):
 		
 	textobj.setTextOrigin(w/2+60,h-offset*52+1)
 	centerText(textobj,'Major Openings')
-	textobj.moveCursor(105,0)
-	textobj.textOut('1'+cl+' Strong, Forcing and ')
-	textobj.setFillColor(red)
-	textobj.textLine('Artificial')
-	textobj.setFillColor(black)
-	textobj.setTextOrigin(492,h-offset*75+1)
+	textobj.setTextOrigin(490,h-offset*52+1)
+	centerText(textobj,'1'+cl+' Forcing and Artificial')
+	textobj.setTextOrigin(490,h-offset*75+1)
 	centerText(textobj,'1'+di+' Openings')
 		
 	textobj.setTextOrigin(3*w/4,15*offset+1)
@@ -378,7 +380,7 @@ def addblacktext(c):
 	textobj.textLines(["Primary signal to partner's leads:",'Attitude'+box+'   Count'+box+'   Suit Preference'+box])
 	
 	textobj.setTextOrigin(5*w/12+2*offset,h-107*offset)
-	boxStr = '   '+box+'   '+box
+	boxStr = '   '+box+'    '+box
 	bl= '_____________________'
 	textobj.textLines(['Suits NT',boxStr,'','','','',boxStr,boxStr,'',boxStr,boxStr,boxStr,'','',
 	                 boxStr,'   '+box,boxStr])
@@ -387,7 +389,20 @@ def addblacktext(c):
 	textobj.textLines(['','Standard:','    Except '+box,bl,'','Upside Down','   Count','   Attitude',
 	                  'First Discard','   Odd-Even','   Lavinthal','  __________','','Other Carding','  Smith Echo','  Trump S/P','  Foster Echo'])
 	
+	# General Approach
+	textobj.setTextOrigin(w/2+15*offset,h-10.5*offset)
+	textobj.textOut('Openings'+box+'   3rd Hand'+box+'   Overcalls'+box+'   Preempts'+box)
 	
+	# NT Box
+	# Experimental
+	textobj.setLeading(12)
+	
+	textobj.setTextOrigin(w/2+offset,h-27*offset)
+	textobj.textLines(['5-Card Major common'+box,'System on over _______','2'+cl+' Stayman'+box+' Puppet'+box,
+	                  '2'+di,'','2'+he,'2'+sp,'2NT'])
+							
+	textobj.setTextOrigin(w/2+106,h-21*offset)
+	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp])
 	
 	c.drawText(textobj)
 		
