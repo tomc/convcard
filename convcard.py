@@ -440,11 +440,67 @@ def addblacktext(c):
 	textobj.setFillColor(red)
 	textobj.textLines(['Drury'+box+' Reverse'+box+' 2-way'+box,'Other ______________________'])
 	
+	# 1D Box
+	
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(412,h-offset*78)
+	textobj.textLine('')
+	textobj.textOut('Dbl Raise: GF'+box+' Limit'+box)
+	textobj.setFillColor(red)
+	textobj.textLine(' Mixed'+box+' Weak'+box)
+	textobj.setFillColor(black)
+	textobj.textLine('After Overcall: Limit'+box+' Mixed'+box+' Weak'+box)
+	textobj.textOut('GF Raise:  ')
+	textobj.setFillColor(red)
+	textobj.textLine('2'+di+box+'  Other________________')
+	textobj.setFillColor(black)
+	textobj.textLine('2NT _____ to _____    3NT _____ to _____')
+	textobj.setFillColor(red)
+	textobj.textLine('Other_________________________________')
+	
+	# 2C box  54*off
+	
+	textobj.setFillColor(red)
+	textobj.setTextOrigin(w/2+8*offset, 55*offset)
+	textobj.textLines(['_____ to _____ HCP','6+'+cl+box+'  5'+cl+' 4 Maj'+box,'Other_____________'])
+	
+	textobj.setTextOrigin(408, 55*offset)
+	textobj.textLine('2'+di+' Ask'+box+'  Resp:________________________')
+	textobj.setFillColor(black)
+	textobj.textOut('2 Maj: Forc'+box)
+	textobj.setFillColor(red)
+	textobj.textLine(' NF Nat'+box+' Other'+box+' _________')
+	textobj.textLine('Other Resp: ___________________________')
+	
+	# 2D Box   44*off
+	
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(w/2+8*offset, 45*offset)
+	textobj.textLine('_____ to _____ HCP')
+	textobj.textOut('Weak'+box)
+	textobj.setFillColor(red)
+	textobj.textLine('  Inter'+box+' Str'+box)
+	textobj.textLine('Short '+di+box+'  Other'+box)
+	textobj.setTextOrigin(w/2+offset, 45*offset)
+	textobj.setFillColor(black)
+	textobj.textLines(['','Nat:'])
+	textobj.setFillColor(red)
+	textobj.textLine('Art:')
+	
+	textobj.setTextOrigin(408,45*offset)
+	blankline='________________________________________'
+	textobj.textLines(['Desc: __________________________________',
+	                 'Resp: __________________________________',
+						    blankline])
+	# 2H Box   34*off
+	
+	# 2S Box   24*off
 	
 	c.drawText(textobj)
 		
 def drawLogo(c):
 	# Testing!!!
+	c.setFillColor(black)
 	c.drawImage('club.tif',2*offset,3.5*offset,width=22,height=30)
 	c.setFont('Deja',14)
 	c.drawCentredString(w/6+3*offset, 6*offset,'http://atlbridge.com/')
