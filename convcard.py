@@ -5,6 +5,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.colors import Color, black, red, green
 
 
+
 # global vars (constants)
 w,h = (8*inch,8.5*inch)
 offset = 4
@@ -121,14 +122,14 @@ def addbluetext(c):
 def add2level(c):
 	c.setFillColor(black)
 	textobj = c.beginText()
-	textobj.setFont('Deja', 2*fs)
-	textobj.setTextOrigin(w/2+offset,54*offset)
+	textobj.setFont('Deja', 1.8*fs)
+	textobj.setTextOrigin(w/2+offset,54.5*offset)
 	textobj.textLine('2'+cl)
-	textobj.setTextOrigin(w/2+offset,44*offset)
+	textobj.setTextOrigin(w/2+offset,44.5*offset)
 	textobj.textLine('2'+di)
-	textobj.setTextOrigin(w/2+offset,34*offset)
+	textobj.setTextOrigin(w/2+offset,34.5*offset)
 	textobj.textLine('2'+he)
-	textobj.setTextOrigin(w/2+offset,24*offset)
+	textobj.setTextOrigin(w/2+offset,24.5*offset)
 	textobj.textLine('2'+sp)
 	c.drawText(textobj)
 
@@ -458,7 +459,7 @@ def addblacktext(c):
 	textobj.setFillColor(red)
 	textobj.textLine('Other_________________________________')
 	
-	# 2C box  54*off
+	# 2C box  55*off
 	
 	textobj.setFillColor(red)
 	textobj.setTextOrigin(w/2+8*offset, 55*offset)
@@ -472,7 +473,7 @@ def addblacktext(c):
 	textobj.textLine(' NF Nat'+box+' Other'+box+' _________')
 	textobj.textLine('Other Resp: ___________________________')
 	
-	# 2D Box   44*off
+	# 2D Box   45*off
 	
 	textobj.setFillColor(black)
 	textobj.setTextOrigin(w/2+8*offset, 45*offset)
@@ -492,18 +493,62 @@ def addblacktext(c):
 	textobj.textLines(['Desc: __________________________________',
 	                 'Resp: __________________________________',
 						    blankline])
-	# 2H Box   34*off
+	# 2H Box   35*off
 	
-	# 2S Box   24*off
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(w/2+8*offset, 35*offset)
+	textobj.textLine('_____ to _____ HCP')
+	textobj.textOut('Weak'+box)
+	textobj.setFillColor(red)
+	textobj.textLine('  Inter'+box+' Str'+box)
+	textobj.textLine('Other'+box)
+	textobj.setTextOrigin(w/2+offset, 35*offset)
+	textobj.setFillColor(black)
+	textobj.textLines(['','Nat:'])
+	textobj.setFillColor(red)
+	textobj.textLine('Art:')
+
+	textobj.setTextOrigin(408,35*offset)
+	textobj.textLines(['Desc: __________________________________',
+	                   'Resp: __________________________________',
+	                 blankline])	
+	# 2S Box   25*off
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(w/2+8*offset, 25*offset)
+	textobj.textLine('_____ to _____ HCP')
+	textobj.textOut('Weak'+box)
+	textobj.setFillColor(red)
+	textobj.textLine('  Inter'+box+' Str'+box)
+	textobj.textLine('Other'+box)
+	textobj.setTextOrigin(w/2+offset, 25*offset)
+	textobj.setFillColor(black)
+	textobj.textLines(['','Nat:'])
+	textobj.setFillColor(red)
+	textobj.textLine('Art:')
+
+	textobj.setTextOrigin(408,25*offset)
+	textobj.textLines(['Desc: __________________________________',
+	                   'Resp: __________________________________',
+	                   blankline])	
 	
 	c.drawText(textobj)
-		
+
+def addocc(c):
+	blankline='_'*int(w/8-3)
+	textobj = c.beginText()
+	textobj.setFont('Deja',fs)
+	textobj.setFillColor(red)
+	
+	textobj.setTextOrigin(w/2+offset,13*offset)
+	textobj.textLines([blankline,blankline,blankline,blankline,blankline])
+	c.drawText(textobj)
+	
 def drawLogo(c):
 	# Testing!!!
 	c.setFillColor(black)
 	c.drawImage('club.tif',2*offset,3.5*offset,width=22,height=30)
 	c.setFont('Deja',14)
-	c.drawCentredString(w/6+3*offset, 6*offset,'http://atlbridge.com/')
+	c.drawCentredString(w/6+3*offset, 6*offset,'http://forcing.club/')
 		
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
 
@@ -516,5 +561,6 @@ add2level(c)
 addBold(c)
 addblacktext(c)
 drawLogo(c)
+addocc(c)
 c.showPage()
 c.save()
