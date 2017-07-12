@@ -152,9 +152,9 @@ def addBold(c):
 	textobj.setTextOrigin(w/2+60,h-offset*52+1)
 	centerText(textobj,'Major Openings')
 	textobj.setTextOrigin(490,h-offset*52+1)
-	centerText(textobj,'1'+cl+' Forcing and Artificial')
+	centerText(textobj,'1'+cl+' Opening')
 	textobj.setTextOrigin(490,h-offset*75+1)
-	centerText(textobj,'1'+di+' Openings')
+	centerText(textobj,'1'+di+' Opening')
 		
 	textobj.setTextOrigin(3*w/4,15*offset+1)
 	centerText(textobj,'Other Conventional Calls')
@@ -549,6 +549,25 @@ def drawLogo(c):
 	c.drawImage('club.tif',2*offset,3.5*offset,width=22,height=30)
 	c.setFont('Deja',14)
 	c.drawCentredString(w/6+3*offset, 6*offset,'http://forcing.club/')
+
+def addredtext(c):
+	c.setFillColor(red)
+	textobj = c.beginText()
+	textobj.setFont('Deja',fs)
+	textobj.setFillColor(red)
+	textobj.setLeading(12)
+	
+	# 3 level lines in NT box
+	textobj.setTextOrigin(w/2+120,h-21*offset)
+	textobj.textLines(['______________']*4)
+	
+	
+	# 2S and 2NT in NT box
+	textobj.setTextOrigin(w/2+offset+16, h-27*offset)
+	textobj.textLines(['','','','','','','_____________________','_____________________'])
+	
+	c.drawText(textobj)
+	
 		
 c = canvas.Canvas("precision-cc.pdf",pagesize=(w,h))  # inch = 72 points
 
@@ -560,6 +579,7 @@ addbluetext(c)
 add2level(c)
 addBold(c)
 addblacktext(c)
+addredtext(c)
 drawLogo(c)
 addocc(c)
 c.showPage()
