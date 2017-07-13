@@ -103,7 +103,7 @@ def addbluetext(c):
 	textobj.moveCursor(13+offset-w/3,44)
 	textobj.textOut('Transfer to '+he+box)
 	textobj.moveCursor(90,0)
-	textobj.textLine('4'+di+', 4'+he+' Transfer'+box)
+	textobj.textLine('4'+di+',4'+he+' Transfer '+box)
 	textobj.moveCursor(-90,0)
 	textobj.setFillColor(red)
 	textobj.textLine('Forcing Stayman'+box)
@@ -406,7 +406,7 @@ def addblacktext(c):
 	                  '2'+di,'','2'+he,'2'+sp,'2NT'])
 							
 	textobj.setTextOrigin(w/2+106,h-21*offset)
-	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp,'','','','','Neg. Dbl'+box+'________'])
+	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp,'','','','','Neg. Dbl '+box+' _______'])
 	
 	textobj.setTextOrigin(470+offset,h-16*offset)
 	textobj.textLine('2NT   _____ to _____')
@@ -560,6 +560,10 @@ def addredtext(c):
 	# 3 level lines in NT box
 	textobj.setTextOrigin(w/2+120,h-21*offset)
 	textobj.textLines(['______________']*4)
+	
+	textobj.setTextOrigin(w/2+106,h-33*offset)
+	textobj.textLines([' _________________','','Smolen '+box,'Lebensohl '+box+' ______________________________',
+	' '*33+'Other ________________'])
 	
 	
 	# 2S and 2NT in NT box
