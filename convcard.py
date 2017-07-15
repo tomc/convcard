@@ -29,7 +29,7 @@ names = ''
 
 def centerText(textobj,text,font='DejaBd',fontsize=fs):
 #  textobjects do not have the equivalent of drawCentredString
-#  created my own.  To use, set the origin point before calling the function, then send
+#  created my own To use, set the origin point before calling the function, then send
 #  both the textobject and the string to center.  Defaults to Deja Bold, default fontsize but can override if wanted.
 
 	textwidth = pdfmetrics.stringWidth(text,font,fontsize)
@@ -86,6 +86,9 @@ def makegrid(c):
 	#2NT Box
 	c.rect(470,h-13*offset,w-470-2*offset,-100)
 	
+	#3NT Box
+	c.rect(470,h-13*offset,w-470-2*offset,-64)
+	
 def addbluetext(c):
 	
 	c.setFillColor(blue)
@@ -103,7 +106,7 @@ def addbluetext(c):
 	textobj.moveCursor(13+offset-w/3,44)
 	textobj.textOut('Transfer to '+he+box)
 	textobj.moveCursor(90,0)
-	textobj.textLine('4'+di+',4'+he+' Transfer '+box)
+	textobj.textLine('4'+di+',4'+he+' Transfer'+box)
 	textobj.moveCursor(-90,0)
 	textobj.setFillColor(red)
 	textobj.textLine('Forcing Stayman'+box)
@@ -116,6 +119,9 @@ def addbluetext(c):
 	textobj.setFillColor(blue)
 	textobj.textOut('  2'+box+'  1'+box+'  0'+box)
 	# Need to include boxes outside 1NT, however I need other colors for spacing guidelines.
+	
+	textobj.setTextOrigin(412,h-offset*55)
+	textobj.textLine(' '*31+'2+ '+cl+box)
 	
 	c.drawText(textobj)
 	
@@ -161,11 +167,15 @@ def addBold(c):
 		
 	textobj.setTextOrigin(w/8,h-4*offset+1)
 	centerText(textobj,'Special Doubles')
+	
 	textobj.setTextOrigin(3*w/8,h-4*offset+1)
 	centerText(textobj,'NoTrump Overcalls')
 		
 	textobj.setTextOrigin(w/8,h-26*offset+1)
 	centerText(textobj,'Simple Overcalls')
+	
+	textobj.setTextOrigin(w/8,h-34*offset+1)
+	centerText(textobj,'Responses')
 		
 	textobj.setTextOrigin(3*w/8,h-23*offset+1)
 	centerText(textobj,'Defense vs. NoTrump')
@@ -406,12 +416,15 @@ def addblacktext(c):
 	                  '2'+di,'','2'+he,'2'+sp,'2NT'])
 							
 	textobj.setTextOrigin(w/2+106,h-21*offset)
-	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp,'','','','','Neg. Dbl '+box+' _______'])
+	textobj.textLines(['3'+cl,'3'+di,'3'+he,'3'+sp,'','','','','Neg. Dbl'+box+' ________'])
 	
 	textobj.setTextOrigin(470+offset,h-16*offset)
 	textobj.textLine('2NT   _____ to _____')
 	textobj.setTextOrigin(5*w/6,h-19*offset)
-	textobj.textLines(['Puppet Stayman'+box,'','3'+sp,'','3NT'])
+	textobj.textLines(['Puppet Stayman'+box,'','3'+sp,''])
+	
+	textobj.setTextOrigin(470+offset, h-31*offset)
+	textobj.textLine('3NT   _____ to _____')
 	
 	# Major Box
 	tmpbox = box+'    '+box
@@ -419,9 +432,12 @@ def addblacktext(c):
 	textobj.textLines(['Min Length','1st/2nd','3rd/4th'])
 	textobj.setTextOrigin(370,h-55*offset)
 	textobj.textLines(['4     5',tmpbox,tmpbox])
-	c.setDash(1,3)
-	c.line(w/2,h-62*offset,408,h-62*offset)
-	c.setDash(1)
+	
+	# Dashed separator
+#	c.setDash(1,3)
+#	c.line(w/2,h-62*offset,408,h-62*offset)
+#	c.setDash(1)
+	
 	textobj.setTextOrigin(w/2+offset,h-64*offset)
 	textobj.textLine('Direct Dbl Raise:')
 	textobj.textOut('     Limit'+box)
@@ -441,6 +457,11 @@ def addblacktext(c):
 	textobj.setFillColor(red)
 	textobj.textLines(['Drury'+box+' Reverse'+box+' 2-way'+box,'Other ______________________'])
 	
+	# 1C Box
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(412,h-offset*55)
+	textobj.textLine(' '*44+'3+ '+cl+box)
+	
 	# 1D Box
 	
 	textobj.setFillColor(black)
@@ -451,9 +472,9 @@ def addblacktext(c):
 	textobj.textLine(' Mixed'+box+' Weak'+box)
 	textobj.setFillColor(black)
 	textobj.textLine('After Overcall: Limit'+box+' Mixed'+box+' Weak'+box)
-	textobj.textOut('GF Raise:  ')
+	textobj.textOut('Forc. Raise:  ')
 	textobj.setFillColor(red)
-	textobj.textLine('2'+di+box+'  Other________________')
+	textobj.textLine('2'+di+box+'  Other______________')
 	textobj.setFillColor(black)
 	textobj.textLine('2NT _____ to _____    3NT _____ to _____')
 	textobj.setFillColor(red)
@@ -461,12 +482,21 @@ def addblacktext(c):
 	
 	# 2C box  55*off
 	
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(w/2+8*offset, 55*offset)
+	textobj.textLines(['_____ to _____ HCP','','Str'+box])
 	textobj.setFillColor(red)
 	textobj.setTextOrigin(w/2+8*offset, 55*offset)
-	textobj.textLines(['_____ to _____ HCP','6+'+cl+box+'  5'+cl+' 4 Maj'+box,'Other_____________'])
+	textobj.textLines(['','6+'+cl+box+'  5'+cl+' 4 Maj'+box,'         Other________'])
+	textobj.setTextOrigin(w/2+offset, 55*offset)
+	textobj.setFillColor(red)
+	textobj.textLines(['','Nat:'])
+	textobj.setFillColor(black)
+	textobj.textLine('Art:')
 	
 	textobj.setTextOrigin(408, 55*offset)
-	textobj.textLine('2'+di+' Ask'+box+'  Resp:________________________')
+	textobj.setFillColor(red)
+	textobj.textLine('2'+di+' Ask'+box+'  Other:_______________________')
 	textobj.setFillColor(black)
 	textobj.textOut('2 Maj: Forc'+box)
 	textobj.setFillColor(red)
@@ -530,7 +560,55 @@ def addblacktext(c):
 	textobj.textLines(['Desc: __________________________________',
 	                   'Resp: __________________________________',
 	                   blankline])	
+	# Special Doubles
+	textobj.setFillColor(black)
+	textobj.setTextOrigin(offset*2,h-6*offset)
+	textobj.textLines(['After Overcall:','Negative'+box+' thru '+'_'*16,'Resp.'+box+' thru '+'_'*9+' Maximal'+box,
+	'','Cards'+box+'  Min. Offshape T/O'+box])
 	
+	
+	# NT Overcalls
+	textobj.setTextOrigin(w/4+offset,h-6*offset)
+	textobj.textLines(['Direct: ____ to ____  Systems on'+box,'','Balancing: ____ to ____',
+	'Jump to 2NT: Minors'+box+' 2 Lowest'+box])
+	
+	# Simple Overcall
+	textobj.setTextOrigin(offset*2, h-28*offset)
+	textobj.textLines(['1 level ____ to ____ HCP (usually)','often 4 cards'+box+' very light style'+box,
+	'','New Suit: Forc'+box+' NFConst'+box+' NF'+box,'Jump Raise: Forc'+box+' Inv'+box+' Weak'+box])
+	
+	# Def vs NT
+	textobj.setTextOrigin(w/4+offset,h-25*offset)
+	textobj.textLines(['vs:','2'+cl,'2'+di,'2'+he,'2'+sp,'Dbl'])
+
+	# Jump OC
+	textobj.setTextOrigin(offset*2, h-51*offset)
+	textobj.textLines([' '*38+'Weak'+box])
+	
+	# Opening Preempts
+	textobj.setTextOrigin(offset*2, h-60*offset)
+	textobj.textLines(['3/4 bids:', '  Sound'+box+'   Light'+box+'   Very Light'+box])
+	
+	# Over T/O X
+	textobj.setTextOrigin(w/4+offset, h-54*offset)
+	textobj.textLines(['New Suit Forc: 1-level'+box+' 2-level'+box,'Jump Shift: Forcing'+box+' Inv'+box+' Weak'+box,
+	'Redouble Implies no fit'+box])
+	
+	# Direct Cuebid
+	textobj.setTextOrigin(offset*2, h-74*offset)
+	textobj.textLines([' '*10+'Over:   Minor       Major','Natural','Strong T/O','Michaels'])
+	textobj.setTextOrigin(offset*18, h-74*offset)
+	textobj.textLines(['','',box+' '*13+box,box+' '*13+box])
+	
+	# vs preempts
+	textobj.setTextOrigin(w/4+offset, h-78*offset)
+	textobj.textLine('Takeout'+box+' thru ______')
+	
+	# slam
+	textobj.setTextOrigin(2*offset,h-93*offset)
+	textobj.textLines(['Gerber'+box+'    Blackwood'+box+'    RKC'+box+'    1430'+box+'    Kickback'+box+'    Redwood'+box,
+	'_'*70,'vs Interference: D0P1'+box+'  DEPO'+box+'  Level:  ____________________  R0P1'+box])
+
 	c.drawText(textobj)
 
 def addocc(c):
@@ -562,13 +640,63 @@ def addredtext(c):
 	textobj.textLines(['______________']*4)
 	
 	textobj.setTextOrigin(w/2+106,h-33*offset)
-	textobj.textLines([' _________________','','Smolen '+box,'Lebensohl '+box+' ______________________________',
-	' '*33+'Other ________________'])
+	textobj.textLines([' _________________','','Smolen'+box,'Lebensohl'+box+' _______________________________',
+	' '*33+'Other ________________','_'*43])
 	
 	
 	# 2S and 2NT in NT box
 	textobj.setTextOrigin(w/2+offset+16, h-27*offset)
-	textobj.textLines(['','','','','','','_____________________','_____________________'])
+	textobj.textLines(['','','','','','','___________________','___________________'])
+	
+	# 2NT opener box
+	textobj.setTextOrigin(470+offset,h-16*offset)
+	textobj.textLines(['','','',' '*9+'_'*17,'_'*23,'','_'*22,'_'*22])
+	
+	# 1C opener
+	textobj.setTextOrigin(412,h-offset*55)
+	textobj.textLines(['Forcing'+box+' Strong'+box,'Desc: '+'_'*32,'1'+di+' Resp: Neg'+box+' Other '+'_'*16,
+	'Other: '+'_'*32,'_'*39,'_'*39])
+
+	# Special Doubles
+	textobj.setTextOrigin(offset*2,h-6*offset)
+	textobj.textLines([' '*24+'Penalty'+box+' '+'_'*7,'','','Support: Dbl'+box+' thru _____ Redbl'+box,'','_'*33])
+	
+	# NT Overcalls
+	textobj.setTextOrigin(w/4+offset,h-6*offset)
+	textobj.textLines(['','Conv'+box+' '+'_'*26,'','','Conv'+box+' '+'_'*26])
+
+	# Simple Overcall
+	textobj.setTextOrigin(offset*2, h-28*offset)
+	textobj.textLines(['','','','','','_'*33])
+	
+	# Def vs NT
+	textobj.setTextOrigin(w/4+offset,h-25*offset)
+	textobj.textLines([' '*8+'_'*14+' '+'_'*14]*6+['Other '+'_'*27,'_'*34])
+	
+	# Jump OC
+	textobj.setTextOrigin(offset*2, h-51*offset)
+	textobj.textLines(['Strong'+box+' Intermediate'+box,'_'*33])
+
+	# Opening Preempts
+	textobj.setTextOrigin(offset*2, h-60*offset)
+	textobj.textLines(['','','Conv/Resp '+'_'*21])
+	
+	# Over T/O X
+	textobj.setTextOrigin(w/4+offset, h-54*offset)
+	textobj.textLines(['','','','2NT Over     Limit+   Limit   Weak','Majors',
+	'Minors','Other '+'_'*27])	
+	textobj.setTextOrigin(w/4+offset*16, h-54*offset)
+	textobj.textLines(['','','','',box+' '*9+box+' '*9+box,box+' '*9+box+' '*9+box])
+	
+	# Direct Cuebid
+	textobj.setTextOrigin(offset*2, h-74*offset)
+	textobj.textLines(['','','','','_'*33])
+	textobj.setTextOrigin(offset*18, h-74*offset)
+	textobj.textLines(['',box+' '*13+box])
+	
+	# vs preempts
+	textobj.setTextOrigin(w/4+offset, h-78*offset)
+	textobj.textLines([' '*35+'Penalty'+box,'Conv. Takeout '+'_'*18,'Lebensohl 2NT Response'+box,'Other: '+'_'*26])
 	
 	c.drawText(textobj)
 	
