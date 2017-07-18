@@ -244,7 +244,7 @@ def addBold(c):
 	textobj.setFont('DejaBd',fs)
 	textobj.textOut('x ')
 	textobj.setFont('Deja',fs)
-	textobj.textOut('x')
+	
 	textobj.moveCursor(10*offset,0)
 	textobj.textOut('x x x ')
 	textobj.setFont('DejaBd',fs)
