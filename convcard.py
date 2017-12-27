@@ -624,9 +624,9 @@ def addocc(c):
 def drawLogo(c):
 	# Testing!!!
 	c.setFillColor(black)
-	c.drawImage('club.tif',2*offset,3.5*offset,width=22,height=30)
-	c.setFont('Deja',14)
-	c.drawCentredString(w/6+3*offset, 6*offset,'http://forcing.club/')
+	c.drawImage('forcingclub-logo.png',13*offset,5.3*offset,width=92,height=30)
+	c.setFont('Deja',12)
+	c.drawCentredString(w/6, 3*offset,'http://forcing.club/')
 
 def addredtext(c):
 	c.setFillColor(red)
